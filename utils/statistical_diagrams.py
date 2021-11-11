@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 
 class diagrams:
     def __init__(self, sheet_name, year):
@@ -78,10 +79,30 @@ class diagrams:
         Returns:
             list : Returns a list of string column fields.
         """
-        excel_object = pd.read_excel(open("thames.xlsx", "rb"), sheet_name= self.sheet_name, usecols= self.col_list)
+        excel_object = pd.read_excel(open("thames.xlsx", "rb"), sheet_name= self.sheet_name, usecols=self.col_list)
         cleaned_list = [i for i in excel_object[f"{self.year}-Daily-Flow"].tolist() if pd.isna(i) is not True]
         cleaned_list.pop(0)
         return cleaned_list
+
+    def generate_scatter_plot(self):
+        """Generates a scatter plot diagram using matplotlib
+
+        Returns:
+            None
+        """
+        excel_object = pd.read_excel(open("thames.xlsx", "rb"), sheet_name= self.sheet_name, usecols=self.col_list)
+        daily_flow_list = [i for i in excel_object[f"{self.year}-Daily-Flow"].tolist() if pd.isna(i) is not True]
+        daily_flow_list.pop(0)
+        
+        date_list = [i for i in excel_object[f"{self.year}-Date"].tolist() if pd.isna(i) is not True]
+        date_list.pop(0)
+
+        x_axis = np.arange(len(daily_flow_list))
+        plt.scatter(date_list, daily_flow_list)
+        plt.gcf().autofmt_xdate()
+        plt.show()
+
+
 
     @classmethod
     def sheet_name_list(cls) -> list:
