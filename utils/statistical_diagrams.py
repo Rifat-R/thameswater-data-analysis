@@ -91,25 +91,24 @@ class diagrams:
             None
         """
         excel_object = pd.read_excel(open("thames.xlsx", "rb"), sheet_name=self.sheet_name, usecols=self.col_list)
-
         daily_list = []
         deleted_index_list = []
-        daily_list_index=0
-        date_list_index=0
-        for i in excel_object[f"{self.year}-Daily-Flow"].tolist():
-            if pd.isna(i) is not True and daily_list_index != 0 and i > 0: 
-                daily_list.append(i)
-                daily_list_index+=1
+        for index,element in enumerate(excel_object[f"{self.year}-Daily-Flow"].tolist()):
+            if pd.isna(element) is not True and index != 0 and element > 0: 
+                daily_list.append(element)
             else:
-                deleted_index_list.append(daily_list_index)
-                daily_list_index+=1
+                deleted_index_list.append(index)
 
         date_list = [i for i in excel_object[f"{self.year}-Date"].tolist() if pd.isna(i) is not True]
-        for i in date_list:
+        print(len(date_list))
+        for index,_ in enumerate(date_list):
+            print(index)
             for x in deleted_index_list:
-                if x == date_list_index:
-                    del date_list[x]
-            date_list_index+=1
+                if x == index:
+                    date_list.pop(x)
+        print(len(daily_list),len(date_list))
+        print(deleted_index_list)
+        print(len(deleted_index_list))
 
         plt.scatter(date_list, daily_list)
         plt.subplots_adjust(left=0.15)
