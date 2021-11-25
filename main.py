@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from tkinter import *
 
 root = Tk()
-root.title("Boxplot")
+root.title("Thames water data analysis")
 # root.geometry("200x200")
 
 

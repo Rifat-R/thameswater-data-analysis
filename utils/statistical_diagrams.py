@@ -66,7 +66,9 @@ class diagrams:
         all_boxplots = [cleaned_list,cleaned_list2,cleaned_list3]
 
         plt.get_current_fig_manager().canvas.set_window_title('Boxplot')
+        
         plt.title(f"Sheet name: {self.sheet_name} / All years 2016/2019/2020 - Daily flow boxplot")
+        plt.xlabel("Daily flow m/3")
         plt.boxplot(all_boxplots, vert=False)
         plt.show()
 
@@ -79,9 +81,11 @@ class diagrams:
         Returns:
             list : Returns a list of string column fields.
         """
+        cleaned_list = []
         excel_object = pd.read_excel(open("thames.xlsx", "rb"), sheet_name = self.sheet_name, usecols=self.col_list)
-        cleaned_list = [i for i in excel_object[f"{self.year}-Daily-Flow"].tolist() if pd.isna(i) is not True]
-        cleaned_list.pop(0)
+        for index,element in enumerate(excel_object[f"{self.year}-Daily-Flow"].tolist()):
+            if pd.isna(element) is not True and index != 0 and element > 0:
+                cleaned_list.append(element)
         return cleaned_list
 
     def generate_scatter_plot(self):
@@ -91,26 +95,20 @@ class diagrams:
             None
         """
         excel_object = pd.read_excel(open("thames.xlsx", "rb"), sheet_name=self.sheet_name, usecols=self.col_list)
-        daily_list = []
-        deleted_index_list = []
-        for index,element in enumerate(excel_object[f"{self.year}-Daily-Flow"].tolist()):
-            if pd.isna(element) is not True and index != 0 and element > 0: 
-                daily_list.append(element)
-            else:
-                deleted_index_list.append(index)
-
+        daily_list = excel_object[f"{self.year}-Daily-Flow"].tolist()
         date_list = [i for i in excel_object[f"{self.year}-Date"].tolist() if pd.isna(i) is not True]
-        print(len(date_list))
-        for index,_ in enumerate(date_list):
-            print(index)
-            for x in deleted_index_list:
-                if x == index:
-                    date_list.pop(x)
-        print(len(daily_list),len(date_list))
-        print(deleted_index_list)
-        print(len(deleted_index_list))
 
-        plt.scatter(date_list, daily_list)
+
+        daily_date_zip = zip(daily_list, date_list)
+        daily_list_refined = []
+        date_list_refined = []
+        for index,element in enumerate(list(daily_date_zip)):
+            if pd.isna(element[0]) is not True and index != 0 and element[0] > 0:
+                daily_list_refined.append(element[0])
+                date_list_refined.append(element[1])
+
+
+        plt.scatter(date_list_refined, daily_list_refined)
         plt.subplots_adjust(left=0.15)
         plt.get_current_fig_manager().canvas.set_window_title('Scatter graph')
         plt.xlabel("Date")
@@ -118,6 +116,7 @@ class diagrams:
         plt.title(f"Sheet name: {self.sheet_name} / Year: {self.year}")
         plt.gcf().autofmt_xdate()
         plt.show()
+
 
 
 
