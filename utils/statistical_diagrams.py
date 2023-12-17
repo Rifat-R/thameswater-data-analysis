@@ -26,7 +26,7 @@ class diagrams:
             if int(i) > 0:
                 cleaned_list.append(i)
 
-        plt.get_current_fig_manager().canvas.set_window_title('Boxplot')
+        plt.get_current_fig_manager().canvas.manager.set_window_title('Boxplot')
         plt.title(f"Sheet name: {self.sheet_name} / Year: {self.year} - Daily flow boxplot")
         plt.boxplot(cleaned_list, vert=False)
         plt.show()
@@ -65,7 +65,7 @@ class diagrams:
 
         all_boxplots = [cleaned_list,cleaned_list2,cleaned_list3]
 
-        plt.get_current_fig_manager().canvas.set_window_title('Boxplot')
+        plt.get_current_fig_manager().canvas.manager.set_window_title('Boxplot')
         
         plt.title(f"Sheet name: {self.sheet_name} / All years 2016/2019/2020 - Daily flow boxplot")
         plt.xlabel("Daily flow m/3")
@@ -110,7 +110,7 @@ class diagrams:
 
         plt.scatter(date_list_refined, daily_list_refined)
         plt.subplots_adjust(left=0.15)
-        plt.get_current_fig_manager().canvas.set_window_title('Scatter graph')
+        plt.get_current_fig_manager().canvas.manager.set_window_title('Scatter graph')
         plt.xlabel("Date")
         plt.ylabel("Daily flow m/3")
         plt.title(f"Sheet name: {self.sheet_name} / Year: {self.year}")
