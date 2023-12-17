@@ -1,7 +1,5 @@
-import pandas as pd
 import numpy as np
 from utils import statistical_diagrams as diagram
-import matplotlib.pyplot as plt
 from tkinter import *
 
 root = Tk()
@@ -17,29 +15,29 @@ def all_boxplots():
     diagram.diagrams(sheet_name_clicked.get(),year_clicked.get()).generate_all_boxplot()
 
 def stats():
-    rounded_mean_2016 = str(round(np.mean(diagram.diagrams(sheet_name_clicked.get(),"2016").generate_list())))
-    rounded_median_2016 = str(round(np.median(diagram.diagrams(sheet_name_clicked.get(),"2016").generate_list())))
-    rounded_range_2016 = str(round(np.ptp(diagram.diagrams(sheet_name_clicked.get(),"2016").generate_list())))
+    rounded_mean_2016 = round(np.mean(diagram.diagrams(sheet_name_clicked.get(),"2016").generate_list()))
+    rounded_median_2016 = round(np.median(diagram.diagrams(sheet_name_clicked.get(),"2016").generate_list()))
+    rounded_range_2016 = round(np.ptp(diagram.diagrams(sheet_name_clicked.get(),"2016").generate_list()))
 
-    rounded_mean_2019 = str(round(np.mean(diagram.diagrams(sheet_name_clicked.get(),"2019").generate_list())))
-    rounded_median_2019 = str(round(np.median(diagram.diagrams(sheet_name_clicked.get(),"2019").generate_list())))
-    rounded_range_2019 = str(round(np.ptp(diagram.diagrams(sheet_name_clicked.get(),"2019").generate_list())))
+    rounded_mean_2019 = round(np.mean(diagram.diagrams(sheet_name_clicked.get(),"2019").generate_list()))
+    rounded_median_2019 = round(np.median(diagram.diagrams(sheet_name_clicked.get(),"2019").generate_list()))
+    rounded_range_2019 = round(np.ptp(diagram.diagrams(sheet_name_clicked.get(),"2019").generate_list()))
 
-    rounded_mean_2020 = str(round(np.mean(diagram.diagrams(sheet_name_clicked.get(),"2020").generate_list())))
-    rounded_median_2020 = str(round(np.median(diagram.diagrams(sheet_name_clicked.get(),"2020").generate_list())))
-    rounded_range_2020 = str(round(np.ptp(diagram.diagrams(sheet_name_clicked.get(),"2020").generate_list())))
+    rounded_mean_2020 = round(np.mean(diagram.diagrams(sheet_name_clicked.get(),"2020").generate_list()))
+    rounded_median_2020 = round(np.median(diagram.diagrams(sheet_name_clicked.get(),"2020").generate_list()))
+    rounded_range_2020 = round(np.ptp(diagram.diagrams(sheet_name_clicked.get(),"2020").generate_list()))
 
-    mean_label_2016.config(text=f"Mean: {rounded_mean_2016}")
-    median_label_2016.config(text=f"Median: {rounded_median_2016}")
-    range_label_2016.config(text=f"Range: {rounded_range_2016}")
+    mean_label_2016.config(text=f"Mean: {rounded_mean_2016:,}")
+    median_label_2016.config(text=f"Median: {rounded_median_2016:,}")
+    range_label_2016.config(text=f"Range: {rounded_range_2016:,}")
 
-    mean_label_2019.config(text=f"Mean: {rounded_mean_2019}")
-    median_label_2019.config(text=f"Median: {rounded_median_2019}")
-    range_label_2019.config(text=f"Range: {rounded_range_2019}")
+    mean_label_2019.config(text=f"Mean: {rounded_mean_2019:,}")
+    median_label_2019.config(text=f"Median: {rounded_median_2019:,}")
+    range_label_2019.config(text=f"Range: {rounded_range_2019:,}")
 
-    mean_label_2020.config(text=f"Mean: {rounded_mean_2020}")
-    median_label_2020.config(text=f"Median: {rounded_median_2020}")
-    range_label_2020.config(text=f"Range: {rounded_range_2020}")
+    mean_label_2020.config(text=f"Mean: {rounded_mean_2020:,}")
+    median_label_2020.config(text=f"Median: {rounded_median_2020:,}")
+    range_label_2020.config(text=f"Range: {rounded_range_2020:,}")
 
 def scatter_plot():
     sheet_name = sheet_name_clicked.get()
